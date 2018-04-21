@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PaddleController : MonoBehaviour {
 
@@ -8,14 +6,14 @@ public class PaddleController : MonoBehaviour {
     private int speed;     // Paddle's move speed
 
     private void Awake() {
-        speed = 30;     // Set speed
+        speed = 30;
     }
 
     private void FixedUpdate () {
         // Vertical key press
         float vertInput = Input.GetAxisRaw("Vertical");
 
-        //Set Paddle's velocity to the vertical input
+        // Set Paddle's velocity to the vertical input
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, vertInput) * speed;
 	}
 }
