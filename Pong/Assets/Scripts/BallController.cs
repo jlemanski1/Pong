@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class BallController : MonoBehaviour {
 
@@ -34,7 +33,14 @@ public class BallController : MonoBehaviour {
 
         // Collided with left or right goal walls
         if ((collision.gameObject.name == "L_Goal") || (collision.gameObject.name == "R_Goal")) {
-            // TODO: Update Score UI
+            // Update Player Score UI
+            if (collision.gameObject.name == "R_Goal") {
+                UpdateScoreUI("PlayerScore_UI");
+            }
+            // Update AI Score UI
+            if (collision.gameObject.name == "L_Goal") {
+                UpdateScoreUI("AIScore_UI");
+            }
 
             // Reset ball to centre
             transform.position = new Vector2(0, 0);
@@ -70,5 +76,18 @@ public class BallController : MonoBehaviour {
     // Returns the position the ball hit the paddle
     private float PaddleHitLocation(Vector2 ballPos, Vector2 paddlePos, float paddleHeight) {
         return (ballPos.y - paddlePos.y) / paddleHeight;
+    }
+
+
+    // Updates Score UI
+    private void UpdateScoreUI(string TextUIName) {
+        var textUIComp = GameObject.Find(TextUIName).GetComponent<Text>();
+
+        // Get the text element and increment the score
+        int score = int.Parse(textUIComp.text);
+        score++;
+
+        // Convert Text element back into string
+        textUIComp.text = score.ToString();
     }
 }
